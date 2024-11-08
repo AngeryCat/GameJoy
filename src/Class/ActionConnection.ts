@@ -19,6 +19,7 @@ function checkInputs(
 		const { Process } = context.Options;
 
 		const rawAction = action.RawAction as RawActionEntry;
+		print(processed)
 
 		if (
 			t.isActionEqualTo(rawAction, keyCode, inputType) &&
