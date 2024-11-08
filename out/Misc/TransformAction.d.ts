@@ -1,0 +1,3 @@
+import type { Action as ActionT, Axis as AxisT, Union as UnionT } from "../Actions";
+import { ActionLike, ActionLikeArray, AxisActionEntry, RawActionEntry } from "../Definitions/Types";
+export declare function transformAction<A extends RawActionEntry>(entry: AxisActionEntry | ActionLike<A> | ActionLikeArray<A>): AxisT<AxisActionEntry> | import("../Actions").Manual<any[]> | ActionT<A> | import("../Actions").Composite<A> | import("../Actions").Middleware<A> | import("../Actions").Dynamic<A> | import("../Actions").Optional<A> | import("../Actions").Sequence<A> | import("../Actions").Sync<A> | UnionT<A> | import("../Actions").Unique<A>;

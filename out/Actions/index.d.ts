@@ -1,0 +1,12 @@
+import { Action } from "./Action";
+import { AxisAction as Axis } from "./AxisAction";
+export { CompositeAction as Composite } from "./CompositeAction";
+export { DynamicAction as Dynamic } from "./DynamicAction";
+export { ManualAction as Manual } from "./ManualAction";
+export { MiddlewareAction as Middleware } from "./MiddlewareAction";
+export { OptionalAction as Optional } from "./OptionalAction";
+export { SequenceAction as Sequence } from "./SequenceAction";
+export { SynchronousAction as Sync } from "./SynchronousAction";
+import { UnionAction as Union } from "./UnionAction";
+export { UniqueAction as Unique } from "./UniqueAction";
+export { Action, Axis, Union };
