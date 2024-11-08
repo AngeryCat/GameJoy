@@ -9,7 +9,6 @@ local function checkInputs(action, keyCode, inputType, processed, callback)
 		local _binding = context.Options
 		local Process = _binding.Process
 		local rawAction = action.RawAction
-		print(processed)
 		if t.isActionEqualTo(rawAction, keyCode, inputType) and (Process == nil or Process == processed) then
 			callback(processed)
 		end
@@ -56,10 +55,19 @@ do
 	function ActionConnection:Ended(callback)
 		if t.actionEntryIs(self.Action, "Action") then
 			self:Connect(self.Action.Ended, callback)
-			self.bin:add(IS.InputEnded:Connect(function(_param, processed)
+			self.bin:add(IS.InputEnded:Connect(function(_param)
 				local KeyCode = _param.KeyCode
 				local UserInputType = _param.UserInputType
-				return self:SendInputRequest(KeyCode, UserInputType, processed, callback)
+				local _fn = self
+				local _result = self.Action.Context
+				if _result ~= nil then
+					_result = _result.Options.Process
+				end
+				local _condition = _result
+				if _condition == nil then
+					_condition = false
+				end
+				return _fn:SendInputRequest(KeyCode, UserInputType, _condition, callback)
 			end))
 		end
 	end
