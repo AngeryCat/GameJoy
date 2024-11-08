@@ -19,7 +19,6 @@ function checkInputs(
 		const { Process } = context.Options;
 
 		const rawAction = action.RawAction as RawActionEntry;
-		print(processed)
 
 		if (
 			t.isActionEqualTo(rawAction, keyCode, inputType) &&
@@ -76,11 +75,11 @@ export class ActionConnection {
 		if (t.actionEntryIs(this.Action, "Action")) {
 			this.Connect(this.Action.Ended as unknown as SignalWithParams, callback);
 			this.bin.add(
-				IS.InputEnded.Connect(({ KeyCode, UserInputType }, processed) =>
+				IS.InputEnded.Connect(({ KeyCode, UserInputType }) =>
 					this.SendInputRequest(
 						KeyCode,
 						UserInputType,
-						processed,
+						this.Action.Context?.Options.Process ?? false,
 						callback,
 					),
 				),
@@ -93,7 +92,7 @@ export class ActionConnection {
 	}
 
 	public Triggered(callback: (processed?: boolean, ...args: Array<unknown>) => void) {
-		this.Connect(this.Action.Triggered as SignalWithParams, callback);
+		this.Connect(this.Action.Triggered as unknown as SignalWithParams, callback);
 	}
 
 	public Released(callback: (processed?: boolean) => void) {
